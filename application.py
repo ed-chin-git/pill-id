@@ -25,7 +25,7 @@ def index():
 
 @application.route('/identify/<query_str>')
 def identify(query_str):
-    return query_str 
+    return "You just passed me this as a query string: "+ query_str 
 
 
 # FUNCTION TO GET CURRENT DAY AND HOUR -- TO INCLUDE IN .py SCRIPT
@@ -62,13 +62,14 @@ def day_hour():
     return weekday, hour
 
 
-# FUNCTION TO FORMAT API input string 
+# FUNCTION TO parse API input string for parameters 
 #  input->  sample API input string(s)-> /indentify/param1=Red&param2=Pill
-#  ouputs -->  dataframe : prediction_inputs
-def format_input(s):
-    weekday, hour = day_hour()
-    # parse input string for model input values
+#  ouputs -->  
+def parse_input(s):
 
+    weekday, hour = day_hour()
+
+    # parse input string for model input values
     weather_str = ''
     weather_loc = s.find("weather=") # returns -1 if not found
     if weather_loc > 0:
@@ -89,7 +90,6 @@ def format_input(s):
         for key, value in month_dict.items():
             if key == month_str:
                 month_num = value
-
     
 
 if __name__ == '__main__':
